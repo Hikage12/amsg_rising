@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# 静的ファイルを配置する場所
+STATIC_ROOT = '/usr/share/nginx/html/static'
+MEDIA_ROOT = '/usr/share/nginx/html/media'
+
 
 # Application definition
 
@@ -138,7 +142,7 @@ STATIC_URL = '/static/'
 
 # logging setting
 LOGGING = {
-    'version': 1, #固定
+    'version': 1,  # 固定
     'disable_existing_loggers': False,
 
     # logger setting
@@ -215,7 +219,7 @@ DEFAULT_FROM_EMAIL = 'admin@example.com'
 
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR,'static'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
