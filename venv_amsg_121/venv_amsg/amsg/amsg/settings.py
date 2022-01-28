@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # taskアプリケーション
     'task.apps.TaskConfig',
 
+
     # accountsアプリケーション
     'accounts.apps.AccountsConfig',
 
@@ -95,7 +96,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'amsg',
-        'USER': 'postgres',
+        'USER': 'app_admin',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',
         'PORT': '5432',
