@@ -25,7 +25,7 @@ SECRET_KEY = '0j#=fjekf4(+664%qdxb4peo3ia-mz!4y3ts!@tluf8z-)%-g6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['44.193.227.83']
 
 # 静的ファイルを配置する場所
 STATIC_ROOT = '/usr/share/nginx/html/static'
