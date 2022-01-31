@@ -5,6 +5,7 @@
 
 {% block contents %}
 <div class="container">
+    <h3 class="mt-4">クラス編集</h3>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_table }}
@@ -15,7 +16,8 @@
             </p>
         {% endfor %}
         
-        <button type="submit">変更</button>
+        <button class="btn btn-success" type="submit">変更</button>
+        <a class="btn btn-secondary ml-2" href="{% url 'task:class_list' %}">キャンセル</a>
     </form>
 </div>
 {% endblock %}

@@ -5,5 +5,29 @@
 {%block title%}A.M.S.G ｜ 受験可能課題一覧{%endblock%}
 
 {%block contents%}
-<h1> (＾ω＾) </h1>
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">受験可能課題一覧</h1>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>課題名</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dist in possible_task_list %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'task:take_exam' dist.distribute_task.pk %}">
+                                {{ dist.distribute_task.task_name }}
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</main>
 {%endblock%}

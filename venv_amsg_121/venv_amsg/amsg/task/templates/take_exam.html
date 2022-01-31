@@ -1,0 +1,23 @@
+{% extends 'task_base.html' %}
+{% load static %}
+
+{% block title %}A.M.S.G ｜ 問題詳細{% endblock %}
+
+{% block activa_login %}active{% endblock %}
+
+{% block contents %}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">課題受験</h1>
+        <div class="card mb-4">
+            <div class="card-body">
+                {{ task.task_name }}
+            </div>
+            <div class="card-body">
+                {{ task.task_time }}　分
+            </div>
+        </div>
+        <a class="btn btn-primary" href="{% url 'task:answer' task.pk %}">受験</a>
+    </div>
+</main>
+{% endblock %}

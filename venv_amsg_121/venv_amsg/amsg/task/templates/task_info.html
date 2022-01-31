@@ -5,6 +5,7 @@
 
 {% block contents %}
 <div class="container">
+    <h3 class="mt-4">課題詳細</h3>
     <div class="my-div-style w-100">
         <a class="btn btn-success mt-5 mb-3" href="{% url 'task:task_set' task.pk %}">課題実施</a>
         <div class="row">
@@ -43,6 +44,47 @@
 
         <a class="btn btn-success mt-5 mb-3" href="{% url 'task:task_edit' task.pk %}">編集</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" id="del" type="submit">削除</a>
+        <a class="btn btn-secondary mt-5 ml-2 mb-3" href="{% url 'task:task_list' %}">戻る</a>
+        
+        {% for quest in quest_list %}
+        <div class="row">
+            <div class="col-3">
+                <strong>問題文</strong>
+            </div>
+            <div class="col-9">
+                {{ quest.q_statement }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <strong>解答</strong>
+            </div>
+            <div class="col-9">
+                {{ quest.q_answer }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <strong>点数</strong>
+            </div>
+            <div class="col-9">
+                {{ quest.q_point }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <strong>自動採点</strong>
+            </div>
+            <div class="col-9">
+                {% if quest.q_autostatus == '0' %}
+                    Off
+                {% else %}
+                    On
+                {% endif %}
+            </div>
+        </div>
+        <br>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

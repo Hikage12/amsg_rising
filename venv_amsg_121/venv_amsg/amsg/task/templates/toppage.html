@@ -1,8 +1,26 @@
 {% extends 'task_base.html' %}
 {% load static %}
 
+
 {% block title %}A.M.S.G{% endblock %}
 
 {% block contents %}
-    <h>hi {{ user.username }}</h>
+<div class="top-page">
+    <div style = "position: absolute; top: 50%; left: 50%; -webkit-transform : translateY(-50%); transform : translateY(-50%);">
+        <br>
+        <nobr>
+        <h>こんにちは,　</h><h2 style = "display:inline">{{ user.username }}</h2><h>　さん</h>
+        </nobr>
+        <br><br>
+        {% if user.user_auth == "1" %}
+        <p>{{ user.username }}さんは　管理者ユーザー　です。</p>
+        {% endif %}
+        {% if user.user_auth == "2" %}
+        <p>{{ user.username }}さんは　教員ユーザー　です。</p>
+        {% endif %}
+        {% if user.user_auth == "3" %}
+        <p>{{ user.username }}さんは　生徒ユーザー　です。</p>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

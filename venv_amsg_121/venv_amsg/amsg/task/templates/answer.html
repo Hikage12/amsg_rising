@@ -1,0 +1,27 @@
+{% extends 'task_base.html' %}
+{% load static %}
+
+{% block title %}A.M.S.G ｜ 解答{% endblock %}
+
+{% block activa_login %}active{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="row">
+        <div class="my-div-style w-100">
+            <form method="POST">
+                <div class="card-body">
+                    {% csrf_token %}
+                    {% for quest in q_list %}
+                    <div class="form-group">
+                        {{ quest.q_statement }}
+                        <input type="text">
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-success">試験終了</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
