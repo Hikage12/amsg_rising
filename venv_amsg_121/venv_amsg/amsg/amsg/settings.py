@@ -152,11 +152,11 @@ LOGGING = {
         # djangoが利用するロガー
         'django': {
             'handlers': ['console'],
-            'level': 'INFO',
+            'level': 'DEBUG',
         },
 
-        # diaryアプリケーションが利用するロガー
-        'diary': {
+        # amsgアプリケーションが利用するロガー
+        'amsg': {
             'handlers': ['console'],
             'level': 'DEBUG',
         },
@@ -164,10 +164,14 @@ LOGGING = {
 
     # handler setting
     'handlers': {
-        'console': {
+        'file': {
             'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'dev'
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/django.log'),
+            'formatter': 'prod',
+            'when': 'D',
+            'interval': 1,
+            'backupCount': 7,
         },
     },
 
