@@ -203,8 +203,8 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_USERNAME_REQUIRED = False
 
 # サインアップにメールアドレス確認を挟むように設定
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_REQUIRED = False
 
 # ログイン/ログアウト後の遷移先を設定
 #LOGIN_REDIRECT_URL = 'diary:diary_list'
