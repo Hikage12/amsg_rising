@@ -162,18 +162,18 @@ LOGGING = {
         },
     },
 
-    # handler setting
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs/django.log'),
-            'formatter': 'prod',
-            'when': 'D',
-            'interval': 1,
-            'backupCount': 7,
-        },
-    },
+    # # handler setting
+    # 'handlers': {
+    #     'file': {
+    #         'level': 'DEBUG',
+    #         'class': 'logging.handlers.TimedRotatingFileHandler',
+    #         'filename': os.path.join(BASE_DIR, 'logs/django.log'),
+    #         'formatter': 'prod',
+    #         'when': 'D',
+    #         'interval': 1,
+    #         'backupCount': 7,
+    #     },
+    # },
 
     # formatter setting
     'formatters': {
