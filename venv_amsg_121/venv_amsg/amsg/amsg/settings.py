@@ -162,20 +162,7 @@ LOGGING = {
         },
     },
 
-<<<<<<< HEAD
-    # # handler setting
-    # 'handlers': {
-    #     'file': {
-    #         'level': 'DEBUG',
-    #         'class': 'logging.handlers.TimedRotatingFileHandler',
-    #         'filename': os.path.join(BASE_DIR, 'logs/django.log'),
-    #         'formatter': 'prod',
-    #         'when': 'D',
-    #         'interval': 1,
-    #         'backupCount': 7,
-    #     },
-    # },
-=======
+
     # handler setting
     'handlers': {
         'console': {
@@ -184,7 +171,6 @@ LOGGING = {
             'formatter': 'dev'
         },
     },
->>>>>>> parent of b0c7356 (Update settings.py)
 
     # formatter setting
     'formatters': {
