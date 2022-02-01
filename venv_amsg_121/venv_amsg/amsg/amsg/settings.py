@@ -152,16 +152,17 @@ LOGGING = {
         # djangoが利用するロガー
         'django': {
             'handlers': ['console'],
-            'level': 'DEBUG',
+            'level': 'INFO',
         },
 
-        # amsgアプリケーションが利用するロガー
-        'amsg': {
+        # diaryアプリケーションが利用するロガー
+        'diary': {
             'handlers': ['console'],
             'level': 'DEBUG',
         },
     },
 
+<<<<<<< HEAD
     # # handler setting
     # 'handlers': {
     #     'file': {
@@ -174,6 +175,16 @@ LOGGING = {
     #         'backupCount': 7,
     #     },
     # },
+=======
+    # handler setting
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'dev'
+        },
+    },
+>>>>>>> parent of b0c7356 (Update settings.py)
 
     # formatter setting
     'formatters': {
