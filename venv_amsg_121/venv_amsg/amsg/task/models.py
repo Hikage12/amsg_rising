@@ -21,7 +21,7 @@ class Task(models.Model):
     task_name = models.CharField(verbose_name='課題名', max_length=20)
     task_subject = models.CharField(verbose_name='教科', max_length=20)
     task_smallsubject = models.CharField(
-        verbose_name='科目', default='古典', max_length=20)
+        verbose_name='科目', default='数学Ⅰ', max_length=20)
     task_score = models.IntegerField(verbose_name='総得点', default=100)
     task_time = models.IntegerField(verbose_name='課題時間', default=60)
     task_status = models.CharField(
