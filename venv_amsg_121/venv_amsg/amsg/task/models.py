@@ -57,7 +57,7 @@ class Question(models.Model):
     q_school = models.ForeignKey(
         School, verbose_name='学校', on_delete=models.PROTECT)
     q_task = models.ForeignKey(
-        Task, verbose_name='課題', on_delete=models.PROTECT)
+        Task, verbose_name='課題', on_delete=models.CASCADE)
     q_statement = models.TextField(verbose_name='問題文', blank=True, null=True)
     q_answer = models.CharField(verbose_name='解答', max_length=200)
     q_point = models.IntegerField(verbose_name='配点', null=True)
@@ -75,9 +75,9 @@ class Question(models.Model):
 
 class Distribution(models.Model):
     distribute_task = models.ForeignKey(
-        Task, verbose_name='課題', on_delete=models.PROTECT)
+        Task, verbose_name='課題', on_delete=models.CASCADE)
     distribute_class = models.ForeignKey(
-        Class, verbose_name='クラス', on_delete=models.PROTECT)
+        Class, verbose_name='クラス', on_delete=models.CASCADE)
     distribute_date = models.DateTimeField(
         verbose_name='実施日', auto_now=True, null=True)
 
@@ -92,7 +92,7 @@ class ExamHistory(models.Model):
     exam_user = models.ForeignKey(
         CustomUser, verbose_name='受験ユーザー', on_delete=models.PROTECT)
     exam_task = models.ForeignKey(
-        Task, verbose_name='課題', on_delete=models.PROTECT)
+        Task, verbose_name='課題', on_delete=models.CASCADE)
     exam_score = models.IntegerField(verbose_name='成績')
     exam_date = models.DateTimeField(verbose_name='受験日', auto_now=True)
 
