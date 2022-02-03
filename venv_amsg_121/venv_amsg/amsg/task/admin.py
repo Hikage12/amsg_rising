@@ -5,4 +5,4 @@ from .models import *
 admin.site.register(Task)
 admin.site.register(Question)
 admin.site.register(Distribution)
-admin.site.register(Answer)
+admin.site.register(ExamHistory)

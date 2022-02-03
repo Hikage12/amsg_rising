@@ -7,17 +7,20 @@
 <div class="container">
     <h3 class="mt-4">課題設定</h3>
     <form method="POST">
-        {% csrf_token %}
-        {{ form.as_table }}
-
-        {% for class in class_list %}
-            <p>
-                {{ class.class_name }} - :<input type="checkbox" name="distribute" value="{{ class.pk }}">
-            </p>
-        {% endfor %}
-        
-        <button class="btn btn-primary" type="submit">実施</button>
-                <a class="btn btn-secondary ml-2" href="{% url 'task:task_info' object.pk %}">キャンセル</a>
+        <div class="my-div-style">
+            <table class="table">
+                {% csrf_token %}
+                {{ form.as_table }}
+            </table>
+            <p>クラス選択</p>
+            {% for class in class_list %}
+                    <p>
+                        {{ class.class_name }} - <input type="checkbox" name="distribute" value="{{ class.pk }}">
+                    </p>
+            {% endfor %}
+            <button class="btn btn-primary" type="submit">実施</button>
+            <a class="btn btn-secondary ml-2" href="{% url 'task:task_info' object.pk %}">キャンセル</a>
+        </div>
     </form>
 </div>
 {% endblock %}

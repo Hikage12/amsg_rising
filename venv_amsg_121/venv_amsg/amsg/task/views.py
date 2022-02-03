@@ -43,13 +43,13 @@ class UserCreateView(LoginRequiredMixin, generic.CreateView):
         obj.user_school = self.request.user.user_school
 
         # ランダム文字列生成
-        randlst = [random.choice(string.ascii_letters + string.digits)
-                   for i in range(10)]
-        random_string = ''.join(randlst)
-        print("************************")
-        print(random_string)
-        print("************************")
-        obj.set_password(random_string)
+        # randlst = [random.choice(string.ascii_letters + string.digits)
+        #            for i in range(10)]
+        # random_string = ''.join(randlst)
+        # print("************************")
+        # print(random_string)
+        # print("************************")
+        obj.set_password(obj.password)
 
         obj.save()
         messages.success(self.request, 'ユーザーを作成しました。')
@@ -211,85 +211,82 @@ class TaskInfoView(LoginRequiredMixin, generic.DetailView):
         )
         return context
 
+    def task_info(request, pk):
+        if request.method == 'POST':
+            if 'task-del' in request.POST:
+                delete_record = Task.objects.filter(id=pk)
+                delete_record.delete()
+            return redirect('task:task_list')
 
-class TaskEditView(LoginRequiredMixin, generic.DetailView):
+
+class TaskInfo2View(LoginRequiredMixin, generic.DetailView):
+    model = Task
+    template_name = 'task_info.html'
+
+    def task_edit(request, pk):
+        if request.method == 'POST':
+            if 'task-taskdel' in request.POST:
+                delete_record = Question.objects.filter(id=pk)
+                print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                delete_record.delete()
+                print("dddddddddddddddddddddddddddddddddddddddddddddddddddd")
+            return redirect('task:task_edit')
+
+
+class TaskEditView(LoginRequiredMixin, generic.UpdateView):
     model = Task
     template_name = 'task_edit.html'
+    form_class = TaskCreateForm
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['quest_list'] = Question.objects.filter(
-            q_task=Task.objects.get(id=self.kwargs['pk'])
-        )
-        return context
+    # def get_context_data(self,*args,**kwargs):
+    #    context = super().get_context_data(*args,**kwargs)
+    #    context['quest_list'] = Question.objects.filter(
+    #        q_task=Task.objects.get(id=self.kwargs['pk'])
+    #        )
+    #    return context
+    def get_success_url(self):
+        return reverse_lazy('task:task_info', kwargs={'pk': self.kwargs['pk']})
 
-    def post(self, request, *args, **kwargs):
-        question_list = []
-        answer_list = []
-        score_list = []
-        select_list = []
-        print("*************")
-        # 編集してるTaskオブジェクト取得
-        task_data = Task.objects.get(id=self.kwargs['pk'])
-        for i in request.POST.items():
-            # ValueError:invalid literal for int() with base 10: ''
-            # task_dataにint変換できないもの入れようとしてる？
-            if re.match(r'task', i[0]):
-                task_data.task_name = i[1]
-                task_data.save()
-            elif re.match(r'subject', i[0]):
-                task_data.task_subject = i[1]
-                task_data.save()
-            elif re.match(r'smallsubject', i[0]):
-                task_data.task_smallsubject = i[1]
-                task_data.save()
-            elif re.match(r'total', i[0]):
-                # 点数入力欄に何も入力しないと空文字列が送られてvalueerror吐かれる
-                task_data.score = i[1]
-                task_data.save()
 
-            elif re.match(r'question_*', i[0]):
-                question_list.append(i[1])
-            elif re.match(r'answer_*', i[0]):
-                answer_list.append(i[1])
-            elif re.match(r'score_*', i[0]):
-                score_list.append(i[1])
-            elif re.match(r'select_*', i[0]):
-                select_list.append(i[1])
+class QuestionAddView(LoginRequiredMixin, generic.CreateView):
+    model = Question
+    template_name = "quest_add.html"
+    form_class = QuestionCreateForm
 
-        for index in range(len(question_list)):
-            question_statement = question_list[index]
-            answer = answer_list[index]
-            score = score_list[index]
-            if select_list[index] == 'on':
-                is_auto = '1'
-            else:
-                is_auto = '0'
-            Question.objects.create(
-                q_school=self.request.user.user_school,
-                q_task=task_data,
-                q_statement=question_statement,
-                q_answer=answer,
-                q_point=score,
-                q_autostatus=is_auto
-            )
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        # 作成時に紐づける
+        obj.q_task = Task.objects.get(id=self.kwargs['pk'])
+        obj.q_school = self.request.user.user_school
 
-        for j in question_list:
-            print("statement:", end=' ')
-            print(j)
-        for k in answer_list:
-            print("answer:", end=' ')
-            print(k)
-        for l in score_list:
-            print("point:", end=' ')
-            print(l)
-        for m in select_list:
-            print("select:", end=' ')
-            print(m)
-        print("*************")
+        obj.save()
+        messages.success(self.request, 'クラスを作成しました。')
+        return super().form_valid(form)
 
-        # post後の遷移処理
-        return redirect("task:task_info", pk=self.kwargs['pk'])
+    def get_success_url(self):
+        return reverse_lazy('task:task_info', kwargs={'pk': self.kwargs['pk']})
+
+
+class QuestionEditView(LoginRequiredMixin, generic.UpdateView):
+    model = Question
+    template_name = 'quest_edit.html'
+    form_class = QuestionCreateForm
+
+    def get_success_url(self):
+        q_data = Question.objects.get(id=self.kwargs['pk'])
+        return reverse_lazy('task:task_info', kwargs={'pk': q_data.q_task.id})
+
+
+class QuestiondeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Question
+    template_name = 'question_delete.html'
+    success_url = reverse_lazy('task:task_list')
+
+    def delete(self, request, *args, **kwargs):
+        # 教科書意味なし
+        # delete
+        return super().delete(request, *args, **kwargs)
+        # superで子クラスから親クラスの変数とメソッドを参照し持ってくることでdeleteさせる。
 
 
 class TaskSetView(LoginRequiredMixin, generic.UpdateView):
@@ -364,5 +361,102 @@ class AnswerView(LoginRequiredMixin, generic.ListView):
         )
         return context
 
+    # postされたらすぐ採点させようかな
+    # Questionのレコードを表示順に取得したい
+    # -> q_task = task_dataの問題レコードをリストで取得
     def post(self, request, *args, **kwargs):
+        task_data = Task.objects.get(id=self.kwargs['pk'])
+        """
+        post されてきた解答をリストで格納
+        出題されている問題オブジェクトをリストで格納
+        index が同じ要素をそれぞれ比較して点数つけてく
+        計算した点数を諸々紐づけて成績レコードを生成する
+        """
+        # postされてきた解答のリスト
+        ans_list = request.POST.getlist('answer')
+        # 出題されている問題オブジェクトのリスト
+        # quest_data_list --> queryset型でlistに格納
+        # for data in quest_data_list: で個別のQuestionオブジェクト取得できる
+        # data.q_statement -> その問題レコードの問題文取得できる
+        quest_data_list = Question.objects.filter(q_task=task_data)
+        sum = 0
+        print("**********************")
+        for index in range(len(ans_list)):
+            if quest_data_list[index].q_answer == ans_list[index]:
+                sum += quest_data_list[index].q_point
+
+            print(quest_data_list[index].q_statement)
+            print(ans_list[index])
+        ExamHistory.objects.create(
+            exam_user=self.request.user,
+            exam_task=task_data,
+            exam_score=sum
+        )
+        print("合計点:", sum)
+        print("**********************")
+
         return redirect('task:toppage')
+
+
+class ExamTakeListView(LoginRequiredMixin, generic.ListView):
+    model = ExamHistory
+    template_name = "exam_history.html"
+
+    def get_queryset(self):
+        return ExamHistory.objects.filter(
+            exam_user=self.request.user
+        )
+
+
+class PersonalScoreView(LoginRequiredMixin, generic.DetailView):
+    model = ExamHistory
+    template_name = "personal_score.html"
+
+
+class ExamTaskListView(LoginRequiredMixin, generic.ListView):
+    model = Distribution
+    template_name = "exam_task_list.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['dist_list'] = Distribution.objects.all()
+        return context
+
+
+class ExamClassListView(LoginRequiredMixin, generic.ListView):
+    model = Class
+    template_name = "exam_class_list.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        task_data = Task.objects.get(id=self.kwargs['pk'])
+        context['dist_data_list'] = Distribution.objects.filter(
+            distribute_task=task_data
+        )
+        return context
+
+
+class ExamStudentListView(LoginRequiredMixin, generic.ListView):
+    model = CustomUser
+    template_name = "exam_stu_list.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        class_data = Class.objects.get(id=self.kwargs['pk'])
+        context['stu_list'] = CustomUser.objects.filter(
+            user_class=class_data,
+            user_auth='3'
+        )
+        return context
+
+
+class StudentScoreView(LoginRequiredMixin, generic.TemplateView):
+    template_name = "student_score.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        stu_data = CustomUser.objects.get(id=self.kwargs['pk'])
+        context['exam_list'] = ExamHistory.objects.filter(
+            exam_user=stu_data
+        )
+        return context

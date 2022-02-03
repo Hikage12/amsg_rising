@@ -1,0 +1,45 @@
+{% extends 'task_base.html' %}
+{% load static %}
+
+{% block title %}A.M.S.G{% endblock %}
+
+
+{% block contents %}
+<body id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h3 class="mt-4">受験履歴</h3>
+            <div class="my-div-style">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        受験課題一覧
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                                <tr>
+                                    <th>課題名</th>
+                                    <th>受験日</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for tasks in object_list %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'task:personal_score' tasks.pk %}">
+                                            {{ tasks.exam_task.task_name }}
+                                        </a>
+                                    </td>
+                                    <td>{{ tasks.exam_date }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+{% endblock %}

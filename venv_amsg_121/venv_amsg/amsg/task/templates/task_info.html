@@ -42,8 +42,9 @@
             </div>
         </div>
 
-        <a class="btn btn-success mt-5 mb-3" href="{% url 'task:task_edit' task.pk %}">編集</a>
-        <a class="btn btn-danger mt-5 ml-2 mb-3" id="del" type="submit">削除</a>
+        <a class="btn btn-success mt-5 mb-3" href="{% url 'task:task_edit' task.pk %}">課題編集</a>
+        <a class="btn btn-danger mt-5 ml-2 mb-3" href="#">課題削除</a>
+        <a class="btn btn-primary mt-5 mb-3" href="{% url 'task:quest_add' task.pk %}">問題追加</a>
         <a class="btn btn-secondary mt-5 ml-2 mb-3" href="{% url 'task:task_list' %}">戻る</a>
         
         {% for quest in quest_list %}
@@ -83,6 +84,8 @@
                 {% endif %}
             </div>
         </div>
+        <a class="btn btn-success mt-5 mb-3" href="{% url 'task:quest_edit' quest.pk %}">編集</a>
+        <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'task:quest_delete' quest.pk %}">削除</a>
         <br>
         {% endfor %}
     </div>

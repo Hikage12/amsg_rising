@@ -7,8 +7,9 @@
 {% block contents %}
 <body id="layoutSidenav_content">
     <main>
-        <a href="{% url 'task:user_create' %}">新規作成</a>
         <div class="container-fluid px-4">
+            <h3 class="mt-4">ユーザー一覧</h3>
+            <a class="btn btn-primary" href="{% url 'task:user_create' %}">新規作成</a>
             <div class="my-div-style">
                 <div class="card mb-4">
                     <div class="card-header">

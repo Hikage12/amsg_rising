@@ -1,4 +1,5 @@
 from base64 import encode
+from operator import truediv
 from tabnanny import verbose
 from django.db import models
 from accounts.models import *
@@ -57,7 +58,6 @@ class Question(models.Model):
         School, verbose_name='学校', on_delete=models.PROTECT)
     q_task = models.ForeignKey(
         Task, verbose_name='課題', on_delete=models.PROTECT)
-    q_name = models.CharField(verbose_name='問題名', max_length=20)
     q_statement = models.TextField(verbose_name='問題文', blank=True, null=True)
     q_answer = models.CharField(verbose_name='解答', max_length=200)
     q_point = models.IntegerField(verbose_name='配点', null=True)
@@ -72,26 +72,35 @@ class Question(models.Model):
     class Meta:
         verbose_name_plural = 'Question'
 
-    def __str__(self):
-        return self.q_name
-
 
 class Distribution(models.Model):
     distribute_task = models.ForeignKey(
         Task, verbose_name='課題', on_delete=models.PROTECT)
     distribute_class = models.ForeignKey(
         Class, verbose_name='クラス', on_delete=models.PROTECT)
+    distribute_date = models.DateTimeField(
+        verbose_name='実施日', auto_now=True, null=True)
 
     class Meta:
         verbose_name_plural = 'Distribution'
 
+    def __str__(self):
+        return self.distribute_task.task_name
 
-class Answer(models.Model):
-    ans_question = models.ForeignKey(
-        Question, verbose_name='問題', on_delete=models.PROTECT)
-    ans_user = models.ForeignKey(
-        CustomUser, verbose_name='ユーザー', on_delete=models.PROTECT)
-    student_answer = models.TextField(verbose_name='解答', blank=True, null=True)
+
+class ExamHistory(models.Model):
+    exam_user = models.ForeignKey(
+        CustomUser, verbose_name='受験ユーザー', on_delete=models.PROTECT)
+    exam_task = models.ForeignKey(
+        Task, verbose_name='課題', on_delete=models.PROTECT)
+    exam_score = models.IntegerField(verbose_name='成績')
+    exam_date = models.DateTimeField(verbose_name='受験日', auto_now=True)
+
+    class Meta:
+        verbose_name_plural = 'ExamHistory'
+
+    def __str__(self):
+        return self.exam_user.username
 
 
 """

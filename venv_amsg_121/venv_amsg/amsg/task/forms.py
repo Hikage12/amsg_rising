@@ -33,7 +33,17 @@ class ClassCreateForm(forms.ModelForm):
 class TaskCreateForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ('task_name', 'task_subject', 'task_score',)
+        fields = ('task_name', 'task_subject',
+                  'task_smallsubject', 'task_score',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+class QuestionCreateForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = ('q_statement', 'q_answer', 'q_point', 'q_autostatus')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

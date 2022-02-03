@@ -7,9 +7,14 @@
 <div class="container">
     <h3 class="mt-4">課題作成</h3>
     <form method="POST">
-        {% csrf_token %}
-        {{ form.as_table }}
-        <button class="btn btn-success" type="submit">作成</button>
+        <div class="my-div-style w-100">
+            <table class="table">
+                {% csrf_token %}
+                {{ form.as_table }}
+            </table>
+            <button class="btn btn-success" type="submit">課題作成</button>
+            <a class="btn btn-secondary" href="{% url 'task:task_list' %}">一覧に戻る</a>
+        </div>
     </form>
 </div>
 {% endblock %}

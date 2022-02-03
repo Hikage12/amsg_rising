@@ -1,0 +1,34 @@
+{%extends 'task_base.html'%}
+
+{%load static%}
+
+{%block title%}A.M.S.G ｜ クラス一覧{%endblock%}
+
+{%block contents%}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">受験生徒一覧</h1>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>氏名</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stu in stu_list %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'task:student_score' stu.pk %}">
+                                {{ stu.username }}
+                            </a>
+                        </td>
+                    </tr>
+                    
+                    {% endfor %}
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+{%endblock%}

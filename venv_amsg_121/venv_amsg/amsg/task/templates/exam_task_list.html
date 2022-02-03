@@ -1,0 +1,40 @@
+{%extends 'task_base.html'%}
+
+{%load static%}
+
+{%block title%}A.M.S.G ｜ クラス一覧{%endblock%}
+
+{%block contents%}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">実施課題一覧</h1>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>課題名</th>
+                        <th>教科</th>
+                        <th>科目</th>
+                        <th>実施日</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tasks in dist_list %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'task:exam_class_list' tasks.distribute_task.pk %}">
+                                {{ tasks.distribute_task.task_name }}
+                            </a>
+                        </td>
+                        <td>{{ tasks.distribute_task.task_subject }}</td>
+                        <td>{{  tasks.distribute_task.task_smallsubject}}</td>
+                        <td>{{ tasks.distribute_date }}</td>
+                    </tr>
+                    
+                    {% endfor %}
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+{%endblock%}

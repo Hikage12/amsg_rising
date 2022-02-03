@@ -5,7 +5,7 @@
 
 {% block contents %}
 <div class="container">
-    <h3 class="mt-4">課題編集</h3>
+    <h3 class="mt-4">問題編集</h3>
     <div class="row">
         <form method="POST">
             <div class="my-div-style w-100">
@@ -14,7 +14,7 @@
                     {{ form.as_table }}
                 </table>
                 <button class="btn btn-success" type="submit">登録</button>
-                <a class="btn btn-secondary ml-2" href="{% url 'task:task_info' object.pk %}">キャンセル</a>
+                <a class="btn btn-secondary ml-2" href="{% url 'task:task_list' %}">キャンセル</a>
             </div>
         </form>
     </div>

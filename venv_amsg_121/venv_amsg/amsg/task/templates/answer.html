@@ -12,12 +12,24 @@
             <form method="POST">
                 <div class="card-body">
                     {% csrf_token %}
-                    {% for quest in q_list %}
                     <div class="form-group">
-                        {{ quest.q_statement }}
-                        <input type="text">
+                        <table class="table">
+                            {% for quest in q_list %}
+                            <thead>
+                                <th>問題文</th>
+                                <th>解答欄</th>
+                            </thead>
+                            <tbody>
+                                <td>
+                                    {{ quest.q_statement }}
+                                </td>
+                                <td>
+                                    <input type="text" name="answer">
+                                </td>
+                            </tbody>
+                            {% endfor %}
+                        </table>
                     </div>
-                    {% endfor %}
                 </div>
                 <button type="submit" class="btn btn-success">試験終了</button>
             </form>

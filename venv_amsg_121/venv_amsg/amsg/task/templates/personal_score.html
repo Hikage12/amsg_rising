@@ -1,0 +1,22 @@
+{% extends 'task_base.html' %}
+{% load static %}
+
+{% block title %}A.M.S.G ｜ 個人成績{% endblock %}
+
+{% block activa_login %}active{% endblock %}
+
+{% block contents %}
+
+<main>
+    <div class="container-fluid px-4">
+        <h3 class="mt-4">受験結果</h3>
+        <div class="card mb-4">
+            <table class="table">
+                {{ examhistory.exam_score }}
+            </table>
+        </div>
+    </div>
+</main>
+
+</html>
+{% endblock %}
