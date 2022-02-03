@@ -41,7 +41,8 @@
                 {{ task.task_created_by }}
             </div>
         </div>
-        <a class="btn btn-success mt-5 mb-3" href="{% url 'task:task_edit2' task.pk %}">問題追加</a>
+
+        <a class="btn btn-success mt-5 mb-3" href="{% url 'task:quest_add' task.pk %}">問題追加</a>
         <a class="btn btn-success mt-5 mb-3" href="{% url 'task:task_edit' task.pk %}">課題課題編集</a>
 
         <a class="btn btn-primary mt-5 mb-3" data-toggle="modal" data-target="#taskModal">課題課題削除</a>
