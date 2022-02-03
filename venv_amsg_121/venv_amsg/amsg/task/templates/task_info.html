@@ -41,12 +41,44 @@
                 {{ task.task_created_by }}
             </div>
         </div>
+        <a class="btn btn-success mt-5 mb-3" href="{% url 'task:task_edit2' task.pk %}">問題追加</a>
+        <a class="btn btn-success mt-5 mb-3" href="{% url 'task:task_edit' task.pk %}">課題課題編集</a>
 
-        <a class="btn btn-success mt-5 mb-3" href="{% url 'task:task_edit' task.pk %}">課題編集</a>
-        <a class="btn btn-danger mt-5 ml-2 mb-3" href="#">課題削除</a>
-        <a class="btn btn-primary mt-5 mb-3" href="{% url 'task:quest_add' task.pk %}">問題追加</a>
+        <a class="btn btn-primary mt-5 mb-3" data-toggle="modal" data-target="#taskModal">課題課題削除</a>
         <a class="btn btn-secondary mt-5 ml-2 mb-3" href="{% url 'task:task_list' %}">戻る</a>
-        
+        <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="basicModal"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>削除確認画面</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label>この課題を削除しますか？</label>
+                    </div>
+
+                    <form method="POST" action="{% url 'task:task_info_pop' object.pk %}">
+                        {% csrf_token %}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                            <button type="submit" class="btn btn-danger" name="task-del">削除</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- モーダル処理  -->
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+            </script>
+
         {% for quest in quest_list %}
         <div class="row">
             <div class="col-3">
@@ -78,9 +110,9 @@
             </div>
             <div class="col-9">
                 {% if quest.q_autostatus == '0' %}
-                    Off
+                Off
                 {% else %}
-                    On
+                On
                 {% endif %}
             </div>
         </div>
