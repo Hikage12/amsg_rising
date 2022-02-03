@@ -37,7 +37,7 @@ class CustomUser(AbstractUser):
     user_school = models.ForeignKey(
         School, verbose_name='学校', null=True, blank=True, on_delete=models.PROTECT)
     user_class = models.ForeignKey(
-        Class, verbose_name='クラス', null=True, blank=True, on_delete=models.SET_NULL)
+        Class, verbose_name='クラス', null=True, blank=True,  on_delete=models.SET_NULL)
     user_grade = models.IntegerField(verbose_name='学年', null=True, blank=True)
     user_auth = models.CharField(
         verbose_name='権限', choices=SELECTION, max_length=1)
