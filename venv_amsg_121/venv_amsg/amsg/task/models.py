@@ -90,7 +90,7 @@ class Distribution(models.Model):
 
 class ExamHistory(models.Model):
     exam_user = models.ForeignKey(
-        CustomUser, verbose_name='受験ユーザー', null=true, on_delete=models.SET_NULL)
+        CustomUser, verbose_name='受験ユーザー', null=True, on_delete=models.SET_NULL)
     exam_task = models.ForeignKey(
         Task, verbose_name='課題', on_delete=models.CASCADE)
     exam_score = models.IntegerField(verbose_name='成績')
