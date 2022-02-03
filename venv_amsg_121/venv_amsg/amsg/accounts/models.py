@@ -16,7 +16,7 @@ class School(models.Model):
 
 class Class(models.Model):
     class_school = models.ForeignKey(
-        School, verbose_name='学校', default=0, on_delete=models.CASCADE)
+        School, verbose_name='学校', default=0, on_delete=models.PROTECT)
     class_name = models.CharField(verbose_name='クラス名', max_length=10)
     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
 
@@ -35,9 +35,9 @@ class CustomUser(AbstractUser):
     )
 
     user_school = models.ForeignKey(
-        School, verbose_name='学校', null=True, blank=True, on_delete=models.CASCADE)
+        School, verbose_name='学校', null=True, blank=True, on_delete=models.PROTECT)
     user_class = models.ForeignKey(
-        Class, verbose_name='クラス', null=True, blank=True, on_delete=models.CASCADE)
+        Class, verbose_name='クラス', null=True, blank=True, on_delete=models.SET_NULL)
     user_grade = models.IntegerField(verbose_name='学年', null=True, blank=True)
     user_auth = models.CharField(
         verbose_name='権限', choices=SELECTION, max_length=1)
