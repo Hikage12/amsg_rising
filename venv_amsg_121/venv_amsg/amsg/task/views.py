@@ -277,7 +277,7 @@ class QuestionEditView(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy('task:task_info', kwargs={'pk': q_data.q_task.id})
 
 
-class QuestiondeleteView(LoginRequiredMixin, generic.DeleteView):
+class QuestionDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Question
     template_name = 'question_delete.html'
     success_url = reverse_lazy('task:task_list')
