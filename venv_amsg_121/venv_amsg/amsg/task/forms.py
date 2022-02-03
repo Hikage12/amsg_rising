@@ -6,7 +6,7 @@ from task.models import Question, Task
 class UserCreateForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'user_auth', 'user_grade')
+        fields = ('username', 'email', 'user_auth', 'user_grade', 'password')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
