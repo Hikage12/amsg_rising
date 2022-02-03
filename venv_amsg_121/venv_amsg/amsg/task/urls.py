@@ -37,6 +37,6 @@ urlpatterns = [
     path('exam-stu-list/<int:pk>/',
          views.ExamStudentListView.as_view(), name="exam_stu_list"),
     path('task<int:pk>/', views.TaskInfo2View.task_edit, name="task_info_pop2"),
-    path('task<int:pk>/', views.TaskInfoView.task_info, name="task_info_pop"),
+    path('task1/', views.TaskInfoView.task_info, name="task_info_pop"),
 
 ]
