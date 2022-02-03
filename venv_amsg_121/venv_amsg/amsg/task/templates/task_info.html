@@ -43,9 +43,9 @@
         </div>
 
         <a class="btn btn-success mt-5 mb-3" href="{% url 'task:quest_add' task.pk %}">問題追加</a>
-        <a class="btn btn-primary mt-5 mb-3" href="{% url 'task:task_edit' task.pk %}">課題課題編集</a>
+        <a class="btn btn-primary mt-5 mb-3" href="{% url 'task:task_edit' task.pk %}">課題編集</a>
 
-        <a class="btn btn-danger" data-toggle="modal" data-target="#taskModal">課題課題削除</a>
+        <a class="btn btn-danger" data-toggle="modal" data-target="#taskModal">課題削除</a>
         <a class="btn btn-secondary mt-5 ml-2 mb-3" href="{% url 'task:task_list' %}">戻る</a>
         <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="basicModal"
             aria-hidden="true">
