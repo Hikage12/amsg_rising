@@ -445,20 +445,8 @@ class ExamStudentListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         class_data = Class.objects.get(id=self.kwargs['pk'])
-        context['stu_list'] = CustomUser.objects.filter(
-            user_class=class_data,
-            user_auth='3'
-        )
-        return context
-
-
-class StudentScoreView(LoginRequiredMixin, generic.TemplateView):
-    template_name = "student_score.html"
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        stu_data = CustomUser.objects.get(id=self.kwargs['pk'])
-        context['exam_list'] = ExamHistory.objects.filter(
-            exam_user=stu_data
+        task_data = dist_data.distribute_task
+        context['result_list'] = ExamHistory.objects.filter(
+            exam_task=task_data
         )
         return context
