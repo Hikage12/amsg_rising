@@ -18,7 +18,7 @@ class Task(models.Model):
     )
 
     task_school = models.ForeignKey(
-        School, verbose_name='学校', default=0, on_delete=models.CASCADE)
+        School, verbose_name='学校', default=0, on_delete=models.PROTECT)
     task_name = models.CharField(verbose_name='課題名', max_length=20)
     task_subject = models.CharField(verbose_name='教科', max_length=20)
     task_smallsubject = models.CharField(
@@ -55,7 +55,7 @@ class Question(models.Model):
     )
 
     q_school = models.ForeignKey(
-        School, verbose_name='学校', on_delete=models.CASCADE)
+        School, verbose_name='学校', on_delete=models.PROTECT)
     q_task = models.ForeignKey(
         Task, verbose_name='課題', on_delete=models.CASCADE)
     q_statement = models.TextField(verbose_name='問題文', blank=True, null=True)
@@ -90,7 +90,7 @@ class Distribution(models.Model):
 
 class ExamHistory(models.Model):
     exam_user = models.ForeignKey(
-        CustomUser, verbose_name='受験ユーザー', on_delete=models.CASCADE)
+        CustomUser, verbose_name='受験ユーザー', null=true, on_delete=models.SET_NULL)
     exam_task = models.ForeignKey(
         Task, verbose_name='課題', on_delete=models.CASCADE)
     exam_score = models.IntegerField(verbose_name='成績')
