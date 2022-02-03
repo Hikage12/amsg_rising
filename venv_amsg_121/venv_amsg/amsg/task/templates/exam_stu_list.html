@@ -13,20 +13,22 @@
                 <thead>
                     <tr>
                         <th>氏名</th>
+                        <th>得点</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for stu in stu_list %}
+                    {% for date in result_list %}
                     <tr>
                         <td>
-                            <a href="{% url 'task:student_score' stu.pk %}">
-                                {{ stu.username }}
-                            </a>
+                            {{ date.exam_user }}
+                        </td>
+                        <td>
+                            {{ data.exam_score }}
                         </td>
                     </tr>
-                    
+
                     {% endfor %}
-                    </tbody>
+                </tbody>
             </table>
         </div>
     </div>
