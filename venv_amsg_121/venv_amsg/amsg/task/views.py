@@ -27,7 +27,7 @@ class UserListView(LoginRequiredMixin, generic.ListView):
     template_name = "user_list.html"
 
     def get_queryset(self):
-        return CustomUser.objects.all()
+        return CustomUser.objects.filter
 
 
 # ユーザー登録view
@@ -94,7 +94,9 @@ class ClassListView(LoginRequiredMixin, generic.ListView):
     template_name = 'class_list.html'
 
     def get_queryset(self):
-        return Class.objects.all()
+        return Class.objects.filter(
+            class_school=self.request.user.user_school
+        )
 
 
 class ClassCreateView(LoginRequiredMixin, generic.CreateView):
