@@ -19,14 +19,14 @@
                     {% for data in dist_data_list %}
                     <tr>
                         <td>
-                            <a href="{% url 'task:exam_stu_list' data.distribute_class.pk %}">
+                            <a href="{% url 'task:exam_stu_list' data.pk %}">
                                 {{ data.distribute_class.class_name }}
                             </a>
                         </td>
                     </tr>
-                    
+
                     {% endfor %}
-                    </tbody>
+                </tbody>
             </table>
         </div>
     </div>
