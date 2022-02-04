@@ -414,6 +414,14 @@ class PersonalScoreView(LoginRequiredMixin, generic.DetailView):
     model = ExamHistory
     template_name = "personal_score.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        exam_data = ExamHistory.objects.get(id=self.kwargs['pk'])
+        context['que_list'] = Question.objects.filter(
+            q_task=exam_data.exam_task
+        )
+        return context
+
 
 class ExamTaskListView(LoginRequiredMixin, generic.ListView):
     model = Distribution
