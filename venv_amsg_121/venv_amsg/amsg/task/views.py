@@ -452,7 +452,7 @@ class ExamStudentListView(LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        dist_data = Distribution_task.objects.get(id=self.kwargs['pk'])
+        dist_data = Distribution.objects.get(id=self.kwargs['pk'])
         task_data = dist_data.distribution_task
         context['result_list'] = ExamHistory.objects.filter(
             exam_task=task_data
