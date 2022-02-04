@@ -7,7 +7,7 @@
 <div class="container">
     <h3 class="mt-4">課題詳細</h3>
     <div class="my-div-style w-100">
-        <a class="btn btn-success mt-5 mb-3" href="{% url 'task:task_set' task.pk %}">課題実施</a>
+        <a class="btn btn-primary mt-5 mb-3" href="{% url 'task:task_set' task.pk %}">課題実施</a>
         <div class="row">
             <div class="col-3">
                 <strong>課題名</strong>
@@ -42,8 +42,8 @@
             </div>
         </div>
 
-        <a class="btn btn-success mt-5 mb-3" href="{% url 'task:quest_add' task.pk %}">問題追加</a>
-        <a class="btn btn-primary mt-5 mb-3" href="{% url 'task:task_edit' task.pk %}">課題編集</a>
+        <a class="btn btn-primary mt-5 mb-3" href="{% url 'task:quest_add' task.pk %}">問題追加</a>
+        <a class="btn btn-success mt-5 mb-3" href="{% url 'task:task_edit' task.pk %}">課題編集</a>
 
         <a class="btn btn-danger mt-5 mb-3" data-toggle="modal" data-target="#taskModal">課題削除</a>
         <a class="btn btn-secondary mt-5 ml-2 mb-3" href="{% url 'task:task_list' %}">戻る</a>

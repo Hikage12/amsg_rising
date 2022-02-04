@@ -13,7 +13,7 @@
                     {% csrf_token %}
                     {{ form.as_table }}
                 </table>
-                <button class="btn btn-success" type="submit">追加</button>
+                <button class="btn btn-primary" type="submit">追加</button>
                 <a class="btn btn-secondary ml-2" href="{% url 'task:task_list'%}">キャンセル</a>
             </div>
         </form>
