@@ -38,9 +38,10 @@
                     </tfoot>
                 </table>
                 <a class="btn btn-primary" href="{% url 'task:class_edit' class.pk %}">編集</a>
-                <a class="btn btn-primary" data-toggle="modal" data-target="#testModal">クラス削除</a>
+                <a class="btn btn-danger" data-toggle="modal" data-target="#testModal">クラス削除</a>
                 <a class="btn btn-secondary ml-2" href="{% url 'task:class_list' %}">戻る</a>
-                <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="basicModal"
+                    aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -50,7 +51,7 @@
                                 <label>クラスを削除しますか？</label>
                             </div>
 
-                            <form method="POST" action="{% url 'task:class_info_pop' object.pk %}">                        
+                            <form method="POST" action="{% url 'task:class_info_pop' object.pk %}">
                                 {% csrf_token %}
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
@@ -63,7 +64,7 @@
                 <!-- クラス削除ーおわりんゆー -->
 
                 <!-- モーダル処理  -->
-                                <!-- Optional JavaScript -->
+                <!-- Optional JavaScript -->
                 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
                 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
