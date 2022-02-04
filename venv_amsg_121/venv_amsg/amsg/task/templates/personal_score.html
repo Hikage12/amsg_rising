@@ -12,9 +12,35 @@
         <h3 class="mt-4">受験結果</h3>
         <div class="card mb-4">
             <table class="table">
-                {{ examhistory.exam_score }}
+                <thead>
+                    <tr>
+                        <th>点数</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ examhistory.exam_score }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>問題文</th>
+                        <th>模範解答</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for quest in que_list %}
+                    <tr>
+                        <td>{{ quest.q_statement }}</td>
+                        <td>{{ quest.q_answer }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
+        <a class="btn btn-secondary mt-5 ml-2 mb-3" href="{% url 'task:exam_history' %}">戻る</a>
     </div>
 </main>
 
