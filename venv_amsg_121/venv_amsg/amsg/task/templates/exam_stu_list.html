@@ -19,12 +19,8 @@
                 <tbody>
                     {% for date in result_list %}
                     <tr>
-                        <td>
-                            {{ date.exam_user }}
-                        </td>
-                        <td>
-                            {{ data.exam_score }}
-                        </td>
+                        <td>{{ date.exam_user }}</td>
+                        <td>{{ date.exam_score }}</td>
                     </tr>
 
                     {% endfor %}
