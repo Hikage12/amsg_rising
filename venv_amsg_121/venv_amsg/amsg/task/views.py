@@ -419,9 +419,12 @@ class AnswerView(LoginRequiredMixin, generic.ListView):
 
 class ExamTakeListView(LoginRequiredMixin, generic.ListView):
     model = ExamHistory
-    template_name = "exam_history.html"from email import message
+    template_name = "exam_history.html"
 
-
+    def get_queryset(self):
+        return ExamHistory.objects.filter(
+            exam_user=self.request.user
+        )
 # Create your views here.
 
 
