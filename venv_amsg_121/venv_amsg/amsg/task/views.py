@@ -387,6 +387,23 @@ class AnswerView(LoginRequiredMixin, generic.ListView):
             if quest_data_list[index].q_answer == ans_list[index]:
                 sum += quest_data_list[index].q_point
 
+            # 追加
+            ####################################################################
+            ans_task_data = quest_data_list[index].q_task
+            ans_user_data = self.request.user
+            ans_q_statement_data = quest_data_list[index].q_statement
+            ans_q_ans_data = quest_data_list[index].q_answer
+            ans_data_data = ans_list[index]
+            Answer.objects.create(
+                ans_task=ans_task_data,
+                ans_quest=quest_data_list[index],
+                ans_user=ans_user_data,
+                ans_q_statement=ans_q_statement_data,
+                ans_q_ans=ans_q_ans_data,
+                ans_data=ans_data_data
+            )
+            ####################################################################
+
             print(quest_data_list[index].q_statement)
             print(ans_list[index])
         ExamHistory.objects.create(
@@ -414,22 +431,14 @@ class PersonalScoreView(LoginRequiredMixin, generic.DetailView):
     model = ExamHistory
     template_name = "personal_score.html"
 
+    # pk はexamhistory_id
+    # 関数の中身変わった
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         exam_data = ExamHistory.objects.get(id=self.kwargs['pk'])
-        context['que_list'] = Question.objects.filter(
-            q_task=exam_data.exam_task
+        context['result_list'] = Answer.objects.filter(
+            ans_task=exam_data.exam_task
         )
-        return context
-
-
-class ExamTaskListView(LoginRequiredMixin, generic.ListView):
-    model = Distribution
-    template_name = "exam_task_list.html"
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['dist_list'] = Distribution.objects.all()
         return context
 
 

@@ -88,6 +88,23 @@ class Distribution(models.Model):
         return self.distribute_task.task_name
 
 
+# 追加
+class Answer(models.Model):
+    ans_task = models.ForeignKey(
+        Task, verbose_name='課題', on_delete=models.CASCADE)
+    ans_quest = models.ForeignKey(
+        Question, verbose_name='問題', on_delete=models.CASCADE)
+    ans_user = models.ForeignKey(
+        CustomUser, verbose_name='ユーザー', on_delete=models.CASCADE)
+    ans_q_statement = models.TextField(
+        verbose_name='問題文', blank=True, null=True)
+    ans_q_ans = models.CharField(verbose_name='模範解答', max_length=200)
+    ans_data = models.CharField(verbose_name='解答', max_length=200)
+
+    class Meta:
+        verbose_name_plural = 'Answer'
+
+
 class ExamHistory(models.Model):
     exam_user = models.ForeignKey(
         CustomUser, verbose_name='受験ユーザー', null=True, on_delete=models.SET_NULL)

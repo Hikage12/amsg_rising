@@ -3,7 +3,7 @@
 
 {% block title %}A.M.S.G ｜ 個人成績{% endblock %}
 
-{% block activa_login %}active{% endblock %}
+{% block active_login %}active{% endblock %}
 
 {% block contents %}
 
@@ -27,16 +27,18 @@
                 <thead>
                     <tr>
                         <th>問題文</th>
+                        <th>あなたの解答</th>
                         <th>模範解答</th>
                         <th>配点</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for quest in que_list %}
+                    {% for data in result_list %}
                     <tr>
-                        <td>{{ quest.q_statement }}</td>
-                        <td>{{ quest.q_answer }}</td>
-                        <td>{{ quest.q_point }}</td>
+                        <td>{{ data.ans_q_statement }}</td>
+                        <td>{{ data.ans_data }}</td>
+                        <td>{{ data.ans_q_ans }}</td>
+                        <td>{{ data.ans_quest.q_point }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
