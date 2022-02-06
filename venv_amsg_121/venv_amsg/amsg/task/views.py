@@ -27,7 +27,7 @@ class UserListView(LoginRequiredMixin, generic.ListView):
     template_name = "user_list.html"
 
     def get_queryset(self):
-        return CustomUser.objects.all()
+        return CustomUser.objects.filter
 
 
 # ユーザー登録view
@@ -43,13 +43,13 @@ class UserCreateView(LoginRequiredMixin, generic.CreateView):
         obj.user_school = self.request.user.user_school
 
         # ランダム文字列生成
-        randlst = [random.choice(string.ascii_letters + string.digits)
-                   for i in range(10)]
-        random_string = ''.join(randlst)
-        print("************************")
-        print(random_string)
-        print("************************")
-        obj.set_password(random_string)
+        # randlst = [random.choice(string.ascii_letters + string.digits)
+        #            for i in range(10)]
+        # random_string = ''.join(randlst)
+        # print("************************")
+        # print(random_string)
+        # print("************************")
+        obj.set_password(obj.password)
 
         obj.save()
         messages.success(self.request, 'ユーザーを作成しました。')
@@ -213,6 +213,27 @@ class TaskInfoView(LoginRequiredMixin, generic.DetailView):
         )
         return context
 
+    def task_info(request, pk):
+        if request.method == 'POST':
+            if 'task-del' in request.POST:
+                delete_record = Task.objects.filter(id=pk)
+                delete_record.delete()
+            return redirect('task:task_list')
+
+
+class TaskInfo2View(LoginRequiredMixin, generic.DetailView):
+    model = Task
+    template_name = 'task_info.html'
+
+    def task_edit(request, pk):
+        if request.method == 'POST':
+            if 'task-taskdel' in request.POST:
+                delete_record = Question.objects.filter(id=pk)
+                print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                delete_record.delete()
+                print("dddddddddddddddddddddddddddddddddddddddddddddddddddd")
+            return redirect('task:task_edit')
+
 
 class TaskEditView(LoginRequiredMixin, generic.UpdateView):
     model = Task
@@ -260,7 +281,14 @@ class QuestionEditView(LoginRequiredMixin, generic.UpdateView):
 
 class QuestionDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Question
-    template_name = 'quest_edit.html'
+    template_name = 'question_delete.html'
+    success_url = reverse_lazy('task:task_list')
+
+    def delete(self, request, *args, **kwargs):
+        # 教科書意味なし
+        # delete
+        return super().delete(request, *args, **kwargs)
+        # superで子クラスから親クラスの変数とメソッドを参照し持ってくることでdeleteさせる。
 
 
 class TaskSetView(LoginRequiredMixin, generic.UpdateView):
@@ -404,22 +432,13 @@ class PersonalScoreView(LoginRequiredMixin, generic.DetailView):
     template_name = "personal_score.html"
 
     # pk はexamhistory_id
+    # 関数の中身変わった
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         exam_data = ExamHistory.objects.get(id=self.kwargs['pk'])
         context['result_list'] = Answer.objects.filter(
             ans_task=exam_data.exam_task
         )
-        return context
-
-
-class ExamTaskListView(LoginRequiredMixin, generic.ListView):
-    model = Distribution
-    template_name = "exam_task_list.html"
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['dist_list'] = Distribution.objects.all()
         return context
 
 
@@ -440,16 +459,10 @@ class ExamStudentListView(LoginRequiredMixin, generic.ListView):
     model = CustomUser
     template_name = "exam_stu_list.html"
 
-    # pkはDistribution
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         dist_data = Distribution.objects.get(id=self.kwargs['pk'])
         task_data = dist_data.distribute_task
-        # exam_taskのtask_dataがほしい
-        # pkで送られてくるのはクラスのid
-        # distributeのpkを送って dist_data = Distribution.objects.get(id=self)
-        # class_data = dist_data.distribute_class
-        # task_data = dist_data.distribute_task
         context['result_list'] = ExamHistory.objects.filter(
             exam_task=task_data
         )
