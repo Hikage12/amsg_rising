@@ -417,7 +417,7 @@ class AnswerView(LoginRequiredMixin, generic.ListView):
         return redirect('task:toppage')
 
 
-class ExamTakeListView(LoginRequiredMixin, generic.ListView):
+class ExamTaskListView(LoginRequiredMixin, generic.ListView):
     model = ExamHistory
     template_name = "exam_history.html"
 
