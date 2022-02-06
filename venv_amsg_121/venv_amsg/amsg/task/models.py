@@ -20,9 +20,10 @@ class Task(models.Model):
     task_school = models.ForeignKey(
         School, verbose_name='学校', default=0, on_delete=models.PROTECT)
     task_name = models.CharField(verbose_name='課題名', max_length=20)
-    task_subject = models.CharField(verbose_name='教科', max_length=20)
+    task_subject = models.CharField(
+        verbose_name='教科', null=True, max_length=20)
     task_smallsubject = models.CharField(
-        verbose_name='科目', default='数学Ⅰ', max_length=20)
+        verbose_name='科目', null=True, max_length=20)
     task_score = models.IntegerField(verbose_name='総得点', default=100)
     task_time = models.IntegerField(verbose_name='課題時間', default=60)
     task_status = models.CharField(
@@ -79,7 +80,7 @@ class Distribution(models.Model):
     distribute_class = models.ForeignKey(
         Class, verbose_name='クラス', on_delete=models.CASCADE)
     distribute_date = models.DateTimeField(
-        verbose_name='実施日', auto_now=True, null=True)
+        verbose_name='配布日時', auto_now=True, null=True)
 
     class Meta:
         verbose_name_plural = 'Distribution'
@@ -115,20 +116,3 @@ class ExamHistory(models.Model):
 
     class Meta:
         verbose_name_plural = 'ExamHistory'
-
-    def __str__(self):
-        return self.exam_user.username
-
-
-"""
-class ExamHistory(models.Model):
-    exam_user = models.ForeignKey(CustomUser,verbose_name='受験ユーザー',on_delete=models.PROTECT)
-    exam_task = models.ForeignKey(Task,verbose_name='課題',on_delete=models.PROTECT)
-    exam_score = models.IntegerField(verbose_name='成績')
-    exam_date = models.DateTimeField(verbose_name='受験日',auto_now=True)
-
-    class Meta: verbose_name_plural = 'ExamHistory'
-
-    def __str__(self):
-        return self.q_name
-"""
