@@ -17,14 +17,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for date in result_list %}
+                    {% for data in result_list %}
                     <tr>
-                        <td>
-                            {{ date.exam_user }}
-                        </td>
-                        <td>
-                            {{ data.exam_score }}
-                        </td>
+                        <td>{{ data.exam_user }}</td>
+                        <td>{{ data.exam_score }}</td>
                     </tr>
 
                     {% endfor %}
